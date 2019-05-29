@@ -1,21 +1,114 @@
-import React from "react"
-import { Link } from "gatsby"
+import React, { useState, useEffect } from "react"
+// import { Link } from "gatsby"
 
 import Layout from "../components/layout"
-import Image from "../components/image"
 import SEO from "../components/seo"
+import styled from 'styled-components'
+import Movie from '../components/movie';
 
-const IndexPage = () => (
-  <Layout>
-    <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
-    </div>
-    <Link to="/page-2/">Go to page 2</Link>
-  </Layout>
-)
+const MovieGrid = styled.div`
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  padding: 4rem;
+  display: grid;
+  grid-gap: 30px;
+  grid-template-columns: repeat(5, 1fr);
+  justify-items: center;
+  align-items: center;
+  
+  @media (max-width: 800px) {
+    grid-template-columns: repeat(3, 1fr);
+    padding: 4rem 1.2rem;
+    grid-gap: 0;
+    margin: 0;
+  }
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+    padding: 4rem 0;
+    grid-gap: 20px 0;
+    margin: 0;
+  }
+  `
+
+const PageControls = styled.div`
+  color: #fff;
+  margin: 80px 0;
+  justify-items: center;
+  justify-content: center;
+  text-align: center;
+  display: grid;
+  grid-template-columns: repeat(3, 300px);
+  
+  button {
+    font-size: 50px;
+    color: #fff;
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    width: 30px;
+  }
+`
+
+const IndexPage = ({props}) => {
+  // state management with Hooks
+  const [page, setPage] = useState(1)
+  const [movies, setMovies] = useState([])
+
+  
+  const nextHandler = () => {
+    setPage(page + 1)
+    // cleanup function ensures predicatble behavior in pagination.
+    return () => {
+      fetchData()
+    }
+  }
+  
+  const prevHandler = () => {
+    if (page === 1) {
+      return 
+    } else {
+      setPage(page - 1)
+    } 
+    // cleanup function ensures predicatble behavior in pagination.
+    return () => {
+      fetchData()
+    }
+  }
+  
+  // API call extracted to named function making it available to 'settting' by Hooks.
+  const fetchData = async () => {
+    try {
+      const res = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=6d31c18d73745e3328f88183fb494647&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}`)
+      const movies = await res.json()
+      console.log('fetched', movies)
+      setMovies(movies.results)
+    } catch(e) {
+      console.log(e)
+    }
+  }
+
+  useEffect(() => {
+    fetchData()
+    // cleanup within useEffect was not effective ???
+  }, [page])
+
+  return (
+    <Layout>
+      <SEO title="Home" />
+      <MovieGrid>
+        {movies.map(movie => (
+          <Movie key={movie.id} src={movie.id} alt={movie.id} movie={movie} />
+        ))}
+      </MovieGrid>
+      <PageControls>
+        <button onClick={() => prevHandler()} ><span>←</span></button>
+        <div>Page {page}</div>
+        <button onClick={() => nextHandler()} ><span>→</span></button>
+      </PageControls>`
+    </Layout>
+  )
+}
 
 export default IndexPage

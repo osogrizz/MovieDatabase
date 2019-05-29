@@ -59,7 +59,7 @@ const IndexPage = ({props}) => {
   
   const nextHandler = () => {
     setPage(page + 1)
-    // cleanup function ensures predicatble behavior in pagination.
+    // cleanup function ensures predicatble behavior for pagination.
     return () => {
       fetchData()
     }
@@ -71,13 +71,13 @@ const IndexPage = ({props}) => {
     } else {
       setPage(page - 1)
     } 
-    // cleanup function ensures predicatble behavior in pagination.
+    // cleanup function ensures predicatble behavior for pagination.
     return () => {
       fetchData()
     }
   }
   
-  // API call extracted to named function making it available to 'settting' by Hooks.
+  // API call extracted to named function making it available to 'setting' by Hooks.
   const fetchData = async () => {
     try {
       const res = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=6d31c18d73745e3328f88183fb494647&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}`)
@@ -91,7 +91,7 @@ const IndexPage = ({props}) => {
 
   useEffect(() => {
     fetchData()
-    // cleanup within useEffect was not effective ???
+    // clean up within useEffect was not effective ???
   }, [page])
 
   return (

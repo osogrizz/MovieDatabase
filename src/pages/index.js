@@ -40,16 +40,19 @@ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   color: #fff;
-  margin: 80px 0;
   justify-items: center;
   justify-content: center;
   text-align: center;
   align-items: center;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
+  max-width: 960px;
+  margin: 0 auto;
+  padding-bottom: 200px;
+
 
    div {
-     font-size: 30px;
+     font-size: 25px;
      font-weight: 300;
      letter-spacing: 2px;
    }
@@ -84,7 +87,7 @@ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
   }
 `
 
-const IndexPage = ({props}) => {
+const IndexPage = () => {
   // state management with Hooks
   const [page, setPage] = useState(1)
   const [movies, setMovies] = useState([])
@@ -157,7 +160,7 @@ const IndexPage = ({props}) => {
         <div>Page {page}</div>
         <button onClick={() => nextHandler()} ><span><MdPlayArrow /></span></button>
         <button onClick={() => lastHandler()} ><span><MdSkipNext /></span></button>
-      </PageControls>`
+      </PageControls>
 
     </Layout>
   )

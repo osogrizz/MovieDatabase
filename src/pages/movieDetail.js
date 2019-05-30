@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { useState, useEffect } from "react"
 // import { Link } from "gatsby"
 
 import Layout from "../components/layout"
@@ -16,43 +16,39 @@ const MovieWrapper = styled.div`
   background-size: cover;
 `
 
-class MovieDetail extends Component {
+const MovieDetail = () => {
+const [movie, setMovie] = useState({})
   
-  state = {
-    movie: {},
-  }
+  
 
-  async componentDidMount() {
+  const fetchMovie = async () => {
     try {
       const res = await fetch(`https://api.themoviedb.org/3/movie/${this.props.match.params.id}?api_key=6d31c18d73745e3328f88183fb494647&language=en-US`)
-  
       const movie = await res.json()
-      this.setState({
-        movie, 
-      })
-
+      setMovie(movie)
     } catch(e) {
       console.log(e)
     }
   }
 
-  render() {
-    const { movie } = this.state
-    // console.log('Movie: ', movie.id)
-    return (
-      <Layout>
-        <SEO title="Page two" />
-        <MovieWrapper backdrop={`${BACKDROP_PATH}${movie.backdrop_path}`}>
-        <div style={{ display: `flex`,background: `#fff` }}>
-          <Poster style={{ marginTop: `-5rem` }} src={`${POSTER_PATH}${movie.poster_path}`} alt={`${movie.title}`} />
-          <p>{movie.release_date}</p>
-          <p>{movie.overview}</p>
-        </div>
+  useEffect(() => {
+    fetchMovie()
+  },[])
 
-        </MovieWrapper>
-      </Layout>
-    )
-  }
-} 
+    // const { movie } = this.state
+    // console.log('Movie: ', movie.id)
+  return (
+    <Layout>
+      <SEO title="Page two" />
+      <MovieWrapper backdrop={`${BACKDROP_PATH}${movie.backdrop_path}`}>
+      <div style={{ display: `flex`,background: `#fff` }}>
+        <Poster style={{ marginTop: `-5rem` }} src={`${POSTER_PATH}${movie.poster_path}`} alt={`${movie.title}`} />
+        <p>{movie.release_date}</p>
+        <p>{movie.overview}</p>
+      </div>
+      </MovieWrapper>
+    </Layout>
+  )
+}
 
 export default MovieDetail

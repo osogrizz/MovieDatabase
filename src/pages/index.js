@@ -5,6 +5,7 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import styled from 'styled-components'
 import Movie from '../components/movie';
+import { MdSkipPrevious, MdSkipNext } from 'react-icons/md'
 
 const MovieGrid = styled.div`
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -38,7 +39,7 @@ const PageControls = styled.div`
   justify-content: center;
   text-align: center;
   display: grid;
-  grid-template-columns: repeat(3, 300px);
+  grid-template-columns: repeat(5, 1fr);
   
   button {
     font-size: 50px;
@@ -76,6 +77,20 @@ const IndexPage = ({props}) => {
       fetchData()
     }
   }
+
+  const resetHandler = () => {
+    setPage(1) 
+    return () => {
+      fetchData()
+    }
+  }
+
+  const lastHandler = () => {
+    setPage(20)
+    return () => {
+      fetchData()
+    }
+  }
   
   // API call extracted to named function making it available to 'setting' by Hooks.
   const fetchData = async () => {
@@ -103,9 +118,11 @@ const IndexPage = ({props}) => {
         ))}
       </MovieGrid>
       <PageControls>
+        <button onClick={() => resetHandler()}> <span> <MdSkipPrevious /></span> </button>
         <button onClick={() => prevHandler()} ><span>←</span></button>
         <div>Page {page}</div>
         <button onClick={() => nextHandler()} ><span>→</span></button>
+        <button onClick={() => lastHandler()} ><span><MdSkipNext /></span></button>
       </PageControls>`
     </Layout>
   )

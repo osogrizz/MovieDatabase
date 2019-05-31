@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react"
-// import { Link } from "gatsby"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -16,14 +15,14 @@ const MovieWrapper = styled.div`
   background-size: cover;
 `
 
-const MovieDetail = () => {
-const [movie, setMovie] = useState({})
+const MovieDetail = ({ location }) => {
+  const [movie, setMovie] = useState({})
   
   
 
   const fetchMovie = async () => {
     try {
-      const res = await fetch(`https://api.themoviedb.org/3/movie/${this.props.match.params.id}?api_key=6d31c18d73745e3328f88183fb494647&language=en-US`)
+      const res = await fetch(`https://api.themoviedb.org/3/movie/${location.state.choice}?api_key=6d31c18d73745e3328f88183fb494647&language=en-US`)
       const movie = await res.json()
       setMovie(movie)
     } catch(e) {
@@ -33,14 +32,13 @@ const [movie, setMovie] = useState({})
 
   useEffect(() => {
     fetchMovie()
-  },[])
+  }, [])
 
-    // const { movie } = this.state
-    // console.log('Movie: ', movie.id)
   return (
     <Layout>
       <SEO title="Page two" />
       <MovieWrapper backdrop={`${BACKDROP_PATH}${movie.backdrop_path}`}>
+
       <div style={{ display: `flex`,background: `#fff` }}>
         <Poster style={{ marginTop: `-5rem` }} src={`${POSTER_PATH}${movie.poster_path}`} alt={`${movie.title}`} />
         <p>{movie.release_date}</p>

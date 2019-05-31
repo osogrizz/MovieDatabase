@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react"
-// import { Link } from "gatsby"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -87,11 +86,11 @@ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
   }
 `
 
+
 const IndexPage = () => {
   // state management with Hooks
   const [page, setPage] = useState(1)
   const [movies, setMovies] = useState([])
-
   
   const nextHandler = () => {
     setPage(page + 1)
@@ -144,26 +143,27 @@ const IndexPage = () => {
     // clean up within useEffect was not effective ???
   }, [page])
 
+
   return (
     <Layout>
       <SEO title="Home" />
+        <MovieGrid>
+          {movies.map(movie => (
+            <Movie key={movie.id} src={movie.id} alt={movie.title} movie={movie} />
+          ))}
+        </MovieGrid>
 
-      <MovieGrid>
-        {movies.map(movie => (
-          <Movie key={movie.id} src={movie.id} alt={movie.id} movie={movie} />
-        ))}
-      </MovieGrid>
-
-      <PageControls>
-        <button onClick={() => resetHandler()}> <span><MdSkipPrevious /></span></button>
-        <button id="prev" onClick={() => prevHandler()} ><span><MdPlayArrow /></span></button>
-        <div>Page {page}</div>
-        <button onClick={() => nextHandler()} ><span><MdPlayArrow /></span></button>
-        <button onClick={() => lastHandler()} ><span><MdSkipNext /></span></button>
-      </PageControls>
+        <PageControls>
+          <button onClick={() => resetHandler()}> <span><MdSkipPrevious /></span></button>
+          <button id="prev" onClick={() => prevHandler()} ><span><MdPlayArrow /></span></button>
+          <div>Page {page}</div>
+          <button onClick={() => nextHandler()} ><span><MdPlayArrow /></span></button>
+          <button onClick={() => lastHandler()} ><span><MdSkipNext /></span></button>
+        </PageControls>
 
     </Layout>
   )
 }
 
 export default IndexPage
+

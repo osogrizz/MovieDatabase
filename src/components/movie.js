@@ -11,16 +11,17 @@ export const Poster = styled.img`
 
 @media (max-width: 600px) {
   margin: 0;
-  padding: 0
+  padding: 0;
 }
-`;
-
-const Movie = ({ movie }) => (
-  <div>
-    <Link to={`/movieDetail/${movie.id}`}>
-      <Poster src={`${POSTER_PATH}${movie.poster_path}`} alt={movie.title} />
-    </Link>
-  </div>
-);
+`
+const Movie = ({ movie }) => {
+  return (
+    <div>
+      <Link to={`/movieDetail/`} state={{ choice: movie.id }}>
+        <Poster src={`${POSTER_PATH}${movie.poster_path}`} value={movie.id} />
+      </Link>
+    </div>
+  )
+};
 
 export default Movie;

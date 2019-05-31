@@ -114,6 +114,7 @@ const IndexPage = () => {
 
   const resetHandler = () => {
     setPage(1) 
+
     return () => {
       fetchData()
     }
@@ -121,6 +122,7 @@ const IndexPage = () => {
 
   const lastHandler = () => {
     setPage(20)
+    
     return () => {
       fetchData()
     }

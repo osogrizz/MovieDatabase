@@ -40,7 +40,7 @@ const MovieDetail = ({ location }) => {
       <MovieWrapper backdrop={`${BACKDROP_PATH}${movie.backdrop_path}`}>
 
       <div style={{ display: `flex`,background: `#fff` }}>
-        <Poster style={{ marginTop: `-5rem` }} src={`${POSTER_PATH}${movie.poster_path}`} alt={`${movie.title}`} />
+        <Poster style={{ margin: `-5rem 60px 220px 60px` }} src={`${POSTER_PATH}${movie.poster_path}`} alt={`${movie.title}`} />
         <p>{movie.release_date}</p>
         <p>{movie.overview}</p>
       </div>

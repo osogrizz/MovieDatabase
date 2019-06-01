@@ -12,14 +12,14 @@ const MovieWrapper = styled.div`
   position: relative;
   padding-top: 50vh;
   background: url(${props => props.backdrop}) no-repeat;
-  background-size: cover;
+  background-size: 100%;
 
   img {
     margin: -5rem 60px 220px 60px;
   }
 
   @media (max-width: 800px) {
-    
+    background-size: 100%;
   }
   @media (max-width: 600px) {
     position: absolute;

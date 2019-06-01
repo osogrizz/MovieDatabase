@@ -5,6 +5,7 @@ import SEO from "../components/seo"
 import styled from 'styled-components'
 import Movie from '../components/movie';
 import { MdSkipPrevious, MdSkipNext, MdPlayArrow } from 'react-icons/md'
+import MovieSearch from '../components/movieSearch'
 
 const MovieGrid = styled.div`
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -35,7 +36,7 @@ const MovieGrid = styled.div`
   `
 
 const PageControls = styled.div`
-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   color: #fff;
@@ -122,7 +123,7 @@ const IndexPage = () => {
 
   const lastHandler = () => {
     setPage(20)
-    
+
     return () => {
       fetchData()
     }
@@ -149,6 +150,9 @@ const IndexPage = () => {
   return (
     <Layout>
       <SEO title="Home" />
+        <div style={{ padding: `20px`, textAlign: `right` }}>
+          <MovieSearch />
+        </div>
         <MovieGrid>
           {movies.map(movie => (
             <Movie key={movie.id} src={movie.id} alt={movie.title} movie={movie} />

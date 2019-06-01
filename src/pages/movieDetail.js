@@ -23,11 +23,12 @@ const MovieWrapper = styled.div`
   }
   @media (max-width: 600px) {
     position: absolute;
-    
+    background-size: 100%;
     display: grid;
     grid-template-rows: 200px;
+
     img {
-      height: 120px;
+      height: 220px;
       margin: 20px auto;
     }
   }
@@ -40,11 +41,11 @@ const Container = styled.div`
   @media (max-width: 600px) {
     display: grid;
     margin: 10px auto;
-    height: 60vh;
+    height: 80vh;
     text-align: center;
     justify-content: center;
     grid-template-rows: 1fr;
-    /* margin: 80vh auto; */
+    margin: -21vh auto;
   }
 `
 

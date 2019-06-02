@@ -5,7 +5,7 @@ import SEO from "../components/seo"
 import styled from 'styled-components'
 import Movie from '../components/movie';
 import { MdSkipPrevious, MdSkipNext, MdPlayArrow } from 'react-icons/md'
-import MovieSearch from '../components/movieSearch'
+// import MovieSearch from '../components/movieSearch'
 
 const MovieGrid = styled.div`
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -87,7 +87,6 @@ const PageControls = styled.div`
   }
 `
 
-
 const IndexPage = () => {
   // state management with Hooks
   const [page, setPage] = useState(1)
@@ -151,7 +150,7 @@ const IndexPage = () => {
     <Layout>
       <SEO title="Home" />
         <div style={{ padding: `20px`, textAlign: `right` }}>
-          <MovieSearch />
+          {/* <MovieSearch /> */}
         </div>
         <MovieGrid>
           {movies.map(movie => (

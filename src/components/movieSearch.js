@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 import styled from 'styled-components'
 import { MdSearch } from 'react-icons/md'
@@ -31,6 +31,14 @@ const SearchWrapper =styled.div`
 `
 
 const MovieSearch = () => {
+
+  const fetchSearchData = async () => {
+    try {
+      const res = await fetch(``)
+    } catch(e) {
+      console.log(e)
+    }
+  }
 
   return (
     <SearchWrapper >

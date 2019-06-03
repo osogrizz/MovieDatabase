@@ -121,7 +121,11 @@ const IndexPage = () => {
   }
 
   const lastHandler = () => {
-    setPage(20)
+    if (page === 1) {
+      setPage(20)
+    } else {
+      setPage(page + 20)
+    }
 
     return () => {
       fetchData()

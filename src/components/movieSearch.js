@@ -32,17 +32,35 @@ const SearchWrapper =styled.div`
 
 const MovieSearch = () => {
 
-  const fetchSearchData = async () => {
+  const [ searchData, setSearchData] = useState([])
+
+  const fetchSearch = async () => {
     try {
-      const res = await fetch(``)
+      const res = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=6d31c18d73745e3328f88183fb494647&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=2`)
+      const searchData = await res.json()
+      setSearchData(searchData.results)
     } catch(e) {
       console.log(e)
     }
   }
 
+  const searchHandler = () => {
+    console.log('searched!')
+    setSearchData(searchData)
+
+    return () => {
+      fetchSearch()
+    }
+  }
+
+  useEffect(() => {
+    fetchSearch()
+  }, [])
+
   return (
     <SearchWrapper >
-      <input type="text" name="search" placeholder="search for movies here..." /><span><MdSearch /></span>
+      <input type="search" name="search" placeholder="search for movies here..."  />
+      <button onClick={() => searchHandler() } style={{ background: `transparent`, border: `none`, outline: `none` }}><span><MdSearch /></span></button>
     </SearchWrapper>
   )
 }

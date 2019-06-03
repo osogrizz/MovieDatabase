@@ -5,7 +5,7 @@ import SEO from "../components/seo"
 import styled from 'styled-components'
 import Movie from '../components/movie';
 import { MdSkipPrevious, MdSkipNext, MdPlayArrow } from 'react-icons/md'
-// import MovieSearch from '../components/movieSearch'
+import MovieSearch from '../components/movieSearch'
 
 const MovieGrid = styled.div`
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -133,7 +133,6 @@ const IndexPage = () => {
     try {
       const res = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=6d31c18d73745e3328f88183fb494647&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}`)
       const movies = await res.json()
-      // console.log('fetched', movies)
       setMovies(movies.results)
     } catch(e) {
       console.log(e)
@@ -150,7 +149,7 @@ const IndexPage = () => {
     <Layout>
       <SEO title="Home" />
         <div style={{ padding: `20px`, textAlign: `right` }}>
-          {/* <MovieSearch /> */}
+          <MovieSearch />
         </div>
         <MovieGrid>
           {movies.map(movie => (

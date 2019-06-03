@@ -23,11 +23,17 @@ const SearchWrapper =styled.div`
     outline: none;
   }
 
+  button {
+    background: transparent;
+    border: none;
+    outline: none;
+
+  }
+
   span {
     color: #fff;
     font-size: 25px;
   }
-  
 `
 
 const MovieSearch = () => {
@@ -55,12 +61,12 @@ const MovieSearch = () => {
 
   useEffect(() => {
     fetchSearch()
-  }, [])
+  }, [searchData])
 
   return (
     <SearchWrapper >
       <input type="search" name="search" placeholder="search for movies here..."  />
-      <button onClick={() => searchHandler() } style={{ background: `transparent`, border: `none`, outline: `none` }}><span><MdSearch /></span></button>
+      <button onClick={() => searchHandler() }><span><MdSearch /></span></button>
     </SearchWrapper>
   )
 }

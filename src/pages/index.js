@@ -5,7 +5,8 @@ import SEO from "../components/seo"
 import styled from 'styled-components'
 import Movie from '../components/movie';
 import { MdSkipPrevious, MdSkipNext, MdPlayArrow } from 'react-icons/md'
-import MovieSearch from '../components/movieSearch'
+import { MdSearch } from 'react-icons/md'
+
 
 const MovieGrid = styled.div`
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -87,10 +88,44 @@ const PageControls = styled.div`
   }
 `
 
+const SearchWrapper =styled.div`
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  padding: 20px;
+  align-items: center;
+  justify-content: center;
+  text-align: right;
+
+  input {
+    padding: 3px 10px;
+    margin: 0;
+    border: none;
+    border-bottom: 2px solid gray;
+    width: 280px;
+    background: #222;
+    color: #fff;
+    outline: none;
+  }
+
+  button {
+    background: transparent;
+    border: none;
+    outline: none;
+
+  }
+
+  span {
+    color: #fff;
+    font-size: 25px;
+  }
+`
+
 const IndexPage = () => {
   // state management with Hooks
   const [page, setPage] = useState(1)
   const [movies, setMovies] = useState([])
+  const [ searched, setSearched] = useState('')
   
   const nextHandler = () => {
     setPage(page + 1)
@@ -121,7 +156,7 @@ const IndexPage = () => {
   }
 
   const lastHandler = () => {
-    setPage(20)
+    setPage(page + 20)
 
     return () => {
       fetchData()
@@ -139,18 +174,53 @@ const IndexPage = () => {
     }
   }
 
+  
   useEffect(() => {
     fetchData()
     // clean up within useEffect was not effective ???
   }, [page])
+  
+  const fetchSearchData = async () => {
+    try {
+      const res = await fetch(`https://api.themoviedb.org/3/search/company?api_key=6d31c18d73745e3328f88183fb494647&query=${searched}&page=1`)
+      const searchResults = await res.json()
+      setSearched(searchResults.result)
+    } catch(e) {
+      console.log(e)
+    }
+  }
 
+  
+
+  const searchHandler = (e) => {
+    console.log(searched)
+    fetchSearchData()
+  }
+
+  // useEffect(() => {
+  //   if ( searchData === '' ) {
+  //     return 
+  //   } else {
+  //     fetchSearchData()
+  //   }
+  // }, [searchData])
+  
 
   return (
     <Layout>
       <SEO title="Home" />
-        <div style={{ padding: `20px`, textAlign: `right` }}>
-          <MovieSearch />
-        </div>
+
+        <SearchWrapper>
+          <label htmlFor="search"></label>
+          <input type="text" name="search" placeholder="Search for movies here..." input={searched} onInput={e => setSearch(e.target.value)} />
+
+          <button onClick={() => searchHandler()} ><span><MdSearch /></span></button>
+        </SearchWrapper>
+
+        {searchResults.map( movie => (
+          <img src={movie.id} alt={movie.title} />
+        ))}
+        
         <MovieGrid>
           {movies.map(movie => (
             <Movie key={movie.id} src={movie.id} alt={movie.title} movie={movie} />
@@ -170,4 +240,3 @@ const IndexPage = () => {
 }
 
 export default IndexPage
-

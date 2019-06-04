@@ -84,7 +84,11 @@ const Blob = styled.div`
   }
   @media (max-width: 600px) {
     text-align: center;
-    grid-template-rows: 120px;
+    grid-template-rows: 120px 50px 120px;
+    
+    #title {
+      line-height: 30px;
+    }
   }
 
 `

@@ -20,16 +20,22 @@ const MovieWrapper = styled.div`
 
   @media (max-width: 800px) {
     background-size: 100%;
+
+    img {
+      height: 220px;
+    }
   }
   @media (max-width: 600px) {
     position: absolute;
     background-size: 100%;
     display: grid;
     grid-template-rows: 200px;
+    padding-top: 47vh;
 
     img {
-      height: 220px;
-      margin: 20px auto;
+      /* height: 120px;
+      margin: 20px auto; */
+      display: none;
     }
   }
 `
@@ -59,6 +65,11 @@ const Blob = styled.div`
 
   p {
     padding: 20px;
+  }
+
+  #title {
+    margin: 0;
+    font-size: 30px;
   }
 
   #desc {
@@ -105,6 +116,8 @@ const MovieDetail = ({ location }) => {
       <Container>
         <Poster src={`${POSTER_PATH}${movie.poster_path}`} alt={`${movie.title}`} />
         <Blob>
+          { }
+          <p id="title">{movie.title}</p>
           <p>Release Date: {movie.release_date}</p>
           <p id="desc" >{movie.overview}</p>
         </Blob> 

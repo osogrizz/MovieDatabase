@@ -13,16 +13,18 @@ const MovieWrapper = styled.div`
   padding-top: 50vh;
   background: url(${props => props.backdrop}) no-repeat;
   background-size: 100%;
+  background-color: #fff;
 
   img {
     margin: -5rem 60px 220px 60px;
+    height: fit-content;
   }
 
   @media (max-width: 800px) {
     background-size: 100%;
 
     img {
-      height: 220px;
+      height: fit-content;
     }
   }
   @media (max-width: 600px) {

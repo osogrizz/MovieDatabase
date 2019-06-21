@@ -5,8 +5,8 @@ import SEO from "../components/seo"
 import styled from 'styled-components'
 import { Poster } from "../components/movie"
 
-const BACKDROP_PATH = 'https://image.tmdb.org/t/p/w1280'
-const POSTER_PATH = 'https://image.tmdb.org/t/p/w154'
+const BACKDROP_PATH = 'https://image.tmdb.org/t/p/w1280/'
+const POSTER_PATH = 'https://image.tmdb.org/t/p/w154/'
 
 const MovieWrapper = styled.div`
   position: relative;

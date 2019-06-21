@@ -5,7 +5,8 @@ import SEO from "../components/seo"
 import styled from 'styled-components'
 import Movie from '../components/movie';
 import { MdSkipPrevious, MdSkipNext, MdPlayArrow } from 'react-icons/md'
-// import MovieSearch from '../components/movieSearch'
+
+
 
 const MovieGrid = styled.div`
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -33,7 +34,7 @@ const MovieGrid = styled.div`
     grid-gap: 20px 0;
     margin: 0;
   }
-  `
+`
 
 const PageControls = styled.div`
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -66,6 +67,7 @@ const PageControls = styled.div`
     cursor: pointer;
     width: 30px;
   }
+
   #prev {
     transform: scaleX(-1);
   }
@@ -91,6 +93,7 @@ const IndexPage = () => {
   // state management with Hooks
   const [page, setPage] = useState(1)
   const [movies, setMovies] = useState([])
+  const [search, setSearch] = useState('')
   
   const nextHandler = () => {
     setPage(page + 1)
@@ -149,12 +152,36 @@ const IndexPage = () => {
     // clean up within useEffect was not effective ???
   }, [page])
 
+  const handleSearch = (event) => {
+    setSearch(event.target.value)
+    console.log(event.target.value.length)
+    
+    if ( event.target.value === '') {
+      fetchData()
+    } else {
+      setSearch(event.target.value)
+      console.log(event.target.value)
+      setMovies(movies.filter( movie => movie.title.toLowerCase().includes(search.toLowerCase()) ))
+    }
+    
+    return ({ search  }) => {
+      // setSearch(search)
+      
+    }
+  }
+  
+  
+
 
   return (
     <Layout>
       <SEO title="Home" />
         <div style={{ padding: `20px`, textAlign: `right` }}>
-          {/* <MovieSearch /> */}
+          <input  type="text"
+                  placeholder="Search by title here"
+                  value={search}
+                  onChange={handleSearch}
+          />
         </div>
         <MovieGrid>
           {movies.map(movie => (
